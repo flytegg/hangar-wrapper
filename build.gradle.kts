@@ -3,7 +3,7 @@ plugins {
     application
 }
 
-group = "link.portalbox"
+group = "gg.flyte"
 version = "1.0"
 
 repositories {
