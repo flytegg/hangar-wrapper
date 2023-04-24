@@ -47,7 +47,7 @@ The latest version can be found in the releases tab on the right.
 ```xml
 <dependency>
     <groupId>com.github.flytegg</groupId>
-    <artifactId>hangar-api</artifactId>
+    <artifactId>hangar-wrapper</artifactId>
     <version>VERSION</version>
 </dependency>
 ```
@@ -59,7 +59,7 @@ repositories {
 }
         
 dependencies {
-    implementation("com.github.flytegg:hangar-api:VERSION")
+    implementation("com.github.flytegg:hangar-wrapper:VERSION")
 }
 ```  
 
