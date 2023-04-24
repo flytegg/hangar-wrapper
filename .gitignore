@@ -1,6 +1,3 @@
-# Created by https://www.toptal.com/developers/gitignore/api/gradle,intellij,kotlin
-# Edit at https://www.toptal.com/developers/gitignore?templates=gradle,intellij,kotlin
-
 ### Intellij ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
@@ -166,5 +163,3 @@ gradle-app.setting
 ### Gradle Patch ###
 # Java heap dump
 *.hprof
-
-# End of https://www.toptal.com/developers/gitignore/api/gradle,intellij,kotlin
