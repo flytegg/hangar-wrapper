@@ -1,5 +1,6 @@
 package link.portalbox.hangerApi.implementation.hangarVersion
 
+import link.portalbox.hangerApi.HangarClient
 import link.portalbox.hangerApi.implementation.Platform
 
 data class Version(
@@ -15,4 +16,14 @@ data class Version(
     val downloads: Map<String, DownloadInfo>,
     val platformDependencies: Map<Platform, List<String>>,
     val platformDependenciesFormatted: Map<Platform, String>
-)
+) {
+    fun getDownloadURL(platform: Platform): String {
+        val downloadInfo = downloads[platform.name]
+
+        if (downloadInfo != null) {
+            return downloadInfo.downloadUrl ?: downloadInfo.externalUrl
+        }
+
+        return ""
+    }
+}
