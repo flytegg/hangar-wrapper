@@ -6,7 +6,7 @@ A Java/Kotlin wrapper for PaperMC's [Hangar API](https://hangar.papermc.io/api-d
 
 All methods in the wrapper should be accessed through the ```HangarClient``` class.
 
-It currently supports retrieving information about projects, verssions and users. 
+It currently supports retrieving information about projects, versions and users. 
 
 The following methods are in the ```HangarClient``` class, and can be accessed statically:
 
