@@ -67,9 +67,9 @@ dependencies {
 
 Contributions are always welcome. Please open a pull request and try to maintain a similar code quality and style. The team at [Flyte](https://flyte.gg) is working on supporting new endpoints and keeping up with Hangar's changing API.
 
-If you have no coding knowledge, you can contribute by raising an issue.
+If you have no coding knowledge you can contribute by raising an issue.
 
-## Authors
+## Author
 
 This framework was made as an open source tool for [Flyte](https://flyte.gg) and the wider community.
 
