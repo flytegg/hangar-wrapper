@@ -1,4 +1,4 @@
-# Hangar-API
+# Hangar Wrapper
 
 A Java/Kotlin wrapper for PaperMC's [Hangar API](https://hangar.papermc.io/api-docs).
 
