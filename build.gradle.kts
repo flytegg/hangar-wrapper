@@ -14,7 +14,7 @@ dependencies {
     testImplementation(kotlin("test"))
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
     implementation("com.google.code.gson:gson:2.10.1")
-
+    implementation("org.apache.commons:commons-io:1.3.2")
 }
 
 tasks.test {

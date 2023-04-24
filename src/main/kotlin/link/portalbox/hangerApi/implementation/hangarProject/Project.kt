@@ -12,8 +12,4 @@ data class Project (
     val description: String,
     val userActions: UserActions,
     val settings: Settings
-) {
-    fun getDownloadURL(): String {
-        return ""
-    }
-}
+)
