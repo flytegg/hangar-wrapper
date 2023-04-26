@@ -1,10 +1,10 @@
 plugins {
     kotlin("jvm") version "1.8.0"
-    application
+    id("maven-publish")
 }
 
 group = "gg.flyte"
-version = "1.0"
+version = "1.1.1"
 
 repositories {
     mavenCentral()
@@ -23,8 +23,4 @@ tasks.test {
 
 kotlin {
     jvmToolchain(11)
-}
-
-application {
-    mainClass.set("MainKt")
 }

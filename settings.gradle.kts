@@ -1,3 +1,3 @@
 
-rootProject.name = "hangar-api"
+rootProject.name = "hangar-wrapper"
 
