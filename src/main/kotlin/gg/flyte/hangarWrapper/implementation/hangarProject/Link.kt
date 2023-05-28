@@ -1,4 +1,4 @@
-package gg.flyte.hangerApi.implementation.hangarProject
+package gg.flyte.hangarWrapper.implementation.hangarProject
 
 /**
  * Data class representing a link, which contains an ID, type, title, and list of sub-links.

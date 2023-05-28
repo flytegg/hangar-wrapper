@@ -1,6 +1,6 @@
-package gg.flyte.hangerApi.implementation.hangarVersion
+package gg.flyte.hangarWrapper.implementation.hangarVersion
 
-import gg.flyte.hangerApi.implementation.Pagination
+import gg.flyte.hangarWrapper.implementation.Pagination
 
 /**
  * A data class representing a list of versions for a plugin.

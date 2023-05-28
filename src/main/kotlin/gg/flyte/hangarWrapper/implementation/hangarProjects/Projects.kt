@@ -1,7 +1,7 @@
-package gg.flyte.hangerApi.implementation.hangarProjects
+package gg.flyte.hangarWrapper.implementation.hangarProjects
 
-import gg.flyte.hangerApi.implementation.Pagination
-import gg.flyte.hangerApi.implementation.hangarProject.Project
+import gg.flyte.hangarWrapper.implementation.Pagination
+import gg.flyte.hangarWrapper.implementation.hangarProject.Project
 
 /**
  * A data class representing a paginated list of projects.

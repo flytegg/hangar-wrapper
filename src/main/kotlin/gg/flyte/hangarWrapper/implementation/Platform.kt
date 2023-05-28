@@ -1,4 +1,4 @@
-package gg.flyte.hangerApi.implementation
+package gg.flyte.hangarWrapper.implementation
 
 /**
  * An enum representing the different platforms that a project can be built for.

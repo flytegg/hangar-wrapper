@@ -1,6 +1,6 @@
-package gg.flyte.hangerApi.implementation.hangarVersion
+package gg.flyte.hangarWrapper.implementation.hangarVersion
 
-import gg.flyte.hangerApi.implementation.Platform
+import gg.flyte.hangarWrapper.implementation.Platform
 
 /**
  * Represents a version of a plugin on the Hangar platform.

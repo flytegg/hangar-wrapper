@@ -1,8 +1,8 @@
-package gg.flyte.hangerApi.implementation.hangarProject
+package gg.flyte.hangarWrapper.implementation.hangarProject
 
-import gg.flyte.hangerApi.HangarClient
-import gg.flyte.hangerApi.implementation.Platform
-import gg.flyte.hangerApi.implementation.hangarVersion.Version
+import gg.flyte.hangarWrapper.HangarClient
+import gg.flyte.hangarWrapper.implementation.Platform
+import gg.flyte.hangarWrapper.implementation.hangarVersion.Version
 
 /**
  * Data class representing a project on the Hangar platform, including its metadata and settings.

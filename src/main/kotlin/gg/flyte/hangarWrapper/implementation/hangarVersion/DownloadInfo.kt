@@ -1,4 +1,4 @@
-package gg.flyte.hangerApi.implementation.hangarVersion
+package gg.flyte.hangarWrapper.implementation.hangarVersion
 
 /**
  * Data class representing download information, including file information, external URL, and download URL (if available).

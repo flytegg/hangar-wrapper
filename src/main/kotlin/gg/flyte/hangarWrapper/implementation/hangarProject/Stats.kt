@@ -1,4 +1,4 @@
-package gg.flyte.hangerApi.implementation.hangarProject
+package gg.flyte.hangarWrapper.implementation.hangarProject
 
 /**
  * Represents statistics for a project, including views, downloads, stars, and watchers.

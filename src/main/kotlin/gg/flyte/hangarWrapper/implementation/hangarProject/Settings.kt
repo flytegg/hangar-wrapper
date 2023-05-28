@@ -1,4 +1,4 @@
-package gg.flyte.hangerApi.implementation.hangarProject
+package gg.flyte.hangarWrapper.implementation.hangarProject
 
 /**
  * Data class representing the settings of a project, including its links, tags, license, keywords, sponsors and donation information.

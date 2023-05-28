@@ -1,4 +1,4 @@
-package gg.flyte.hangerApi.util
+package gg.flyte.hangarWrapper.util
 
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser

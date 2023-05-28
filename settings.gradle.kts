@@ -1,3 +1,3 @@
 
-rootProject.name = "hangar-wrapper"
+rootProject.name = "hangarWrapper"
 

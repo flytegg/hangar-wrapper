@@ -40,14 +40,15 @@ The latest version can be found in the releases tab on the right.
 ### Maven  
 ```xml
 <repository>
-    <id>jitpack.io</id>
-    <url>https://jitpack.io</url>
+    <id>flyte-repository</id>
+    <name>Flyte Repository</name>
+    <url>https://repo.flyte.gg/<repository></url>
 </repository>
 ```  
 ```xml
 <dependency>
-    <groupId>com.github.flytegg</groupId>
-    <artifactId>hangar-wrapper</artifactId>
+    <groupId>gg.flyte</groupId>
+    <artifactId>hangarWrapper</artifactId>
     <version>VERSION</version>
 </dependency>
 ```
@@ -55,11 +56,11 @@ The latest version can be found in the releases tab on the right.
 #### Gradle
 ```kt
 repositories {
-    maven("https://jitpack.io")
+    maven ("https://repo.flyte.gg/releases")
 }
         
 dependencies {
-    implementation("com.github.flytegg:hangar-wrapper:VERSION")
+    implementation("gg.flyte:hangarWrapper:VERSION")
 }
 ```  
 

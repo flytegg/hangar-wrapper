@@ -1,4 +1,4 @@
-package gg.flyte.hangerApi.implementation.hangarVersion
+package gg.flyte.hangarWrapper.implementation.hangarVersion
 
 /**
  * Data class representing information about a project channel, including the creation date, name, color, and flags.

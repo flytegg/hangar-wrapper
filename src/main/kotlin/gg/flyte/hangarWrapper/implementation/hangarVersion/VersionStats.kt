@@ -1,4 +1,4 @@
-package gg.flyte.hangerApi.implementation.hangarVersion
+package gg.flyte.hangarWrapper.implementation.hangarVersion
 
 /**
  * A data class representing the download statistics for a version of a plugin.

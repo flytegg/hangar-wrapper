@@ -1,4 +1,4 @@
-package gg.flyte.hangerApi.implementation.hangarProject
+package gg.flyte.hangarWrapper.implementation.hangarProject
 
 /**
  * Data class representing a license for a project, including its name, URL, and type.

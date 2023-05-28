@@ -1,4 +1,4 @@
-package gg.flyte.hangerApi.implementation.hangarProject
+package gg.flyte.hangarWrapper.implementation.hangarProject
 
 /**
  * Data class representing a sublink for a Link, including its id, name, and URL.

@@ -1,13 +1,13 @@
-package gg.flyte.hangerApi
+package gg.flyte.hangarWrapper
 
 import com.google.gson.Gson
-import gg.flyte.hangerApi.implementation.hangarProject.Project
-import gg.flyte.hangerApi.implementation.hangarProjects.Projects
-import gg.flyte.hangerApi.implementation.hangarUser.User
-import gg.flyte.hangerApi.util.getJsonData
-import gg.flyte.hangerApi.implementation.Platform
-import gg.flyte.hangerApi.implementation.hangarVersion.Version
-import gg.flyte.hangerApi.implementation.hangarVersion.Versions
+import gg.flyte.hangarWrapper.implementation.hangarProject.Project
+import gg.flyte.hangarWrapper.implementation.hangarProjects.Projects
+import gg.flyte.hangarWrapper.implementation.hangarUser.User
+import gg.flyte.hangarWrapper.util.getJsonData
+import gg.flyte.hangarWrapper.implementation.Platform
+import gg.flyte.hangarWrapper.implementation.hangarVersion.Version
+import gg.flyte.hangarWrapper.implementation.hangarVersion.Versions
 
 /**
  * The `HangarClient` object is the main entry point for interacting with the Hangar API.

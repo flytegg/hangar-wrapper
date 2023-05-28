@@ -1,7 +1,7 @@
-package gg.flyte.hangerApi.implementation.hangarProject
+package gg.flyte.hangarWrapper.implementation.hangarProject
 
-import gg.flyte.hangerApi.HangarClient
-import gg.flyte.hangerApi.implementation.hangarUser.User
+import gg.flyte.hangarWrapper.HangarClient
+import gg.flyte.hangarWrapper.implementation.hangarUser.User
 
 /**
  * Data class representing a namespace for a project or organization, including the owner's name and the slug.

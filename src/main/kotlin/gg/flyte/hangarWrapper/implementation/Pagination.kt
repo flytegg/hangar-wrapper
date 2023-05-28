@@ -1,4 +1,4 @@
-package gg.flyte.hangerApi.implementation
+package gg.flyte.hangarWrapper.implementation
 
 /**
  * A data class representing the pagination information for a list of items.

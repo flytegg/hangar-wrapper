@@ -1,4 +1,4 @@
-package gg.flyte.hangerApi
+package gg.flyte.hangarWrapper
 
 import java.util.concurrent.ThreadFactory
 import java.util.concurrent.atomic.AtomicInteger

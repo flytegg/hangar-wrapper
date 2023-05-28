@@ -1,4 +1,4 @@
-package gg.flyte.hangerApi.implementation.hangarVersion
+package gg.flyte.hangarWrapper.implementation.hangarVersion
 
 /**
  * Data class representing information about a file, including its name, size in bytes, and SHA-256 hash.

@@ -1,4 +1,4 @@
-package gg.flyte.hangerApi.implementation.hangarUser
+package gg.flyte.hangarWrapper.implementation.hangarUser
 
 /**
  * Data class representing a Hangar user.
