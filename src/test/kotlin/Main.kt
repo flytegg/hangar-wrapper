@@ -1,6 +1,8 @@
 import gg.flyte.hangarWrapper.HangarClient
 
 fun main() {
-    println(HangarClient.getTotalProjectCount())
+    HangarClient.getAllStarGazers("flyte", "pluginportal").forEach {
+        println(it.name)
+    }
 }
 

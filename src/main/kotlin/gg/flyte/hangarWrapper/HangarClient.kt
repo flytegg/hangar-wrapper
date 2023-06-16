@@ -6,6 +6,7 @@ import gg.flyte.hangarWrapper.implementation.hangarProjects.Projects
 import gg.flyte.hangarWrapper.implementation.hangarUser.User
 import gg.flyte.hangarWrapper.util.getJsonData
 import gg.flyte.hangarWrapper.implementation.Platform
+import gg.flyte.hangarWrapper.implementation.hangarStargazers.Stargazers
 import gg.flyte.hangarWrapper.implementation.hangarVersion.Version
 import gg.flyte.hangarWrapper.implementation.hangarVersion.Versions
 
@@ -15,7 +16,7 @@ import gg.flyte.hangarWrapper.implementation.hangarVersion.Versions
  */
 object HangarClient {
     private const val BASE_DOMAIN = "https://hangar.papermc.io/api/v1/"
-    private val gson = Gson();
+    private val gson = Gson()
     
     /**
      * Retrieves a list of projects.
@@ -99,4 +100,33 @@ object HangarClient {
     fun getDownloadURL(author: String, slug: String, version: String, platform: Platform): String {
         return BASE_DOMAIN + "projects/$author/$slug/versions/$version/$platform/download"
     }
+
+    fun getStargazers(author: String, slug: String, limit: Int, offset: Int): Stargazers {
+        if (limit > 25) {
+            throw IllegalArgumentException("Limit can't be higher than 25! (Limit: $limit)")
+        }
+
+        return gson.fromJson(getJsonData(BASE_DOMAIN + "projects/$author/$slug/stargazers?limit=$limit&offset=$offset"), Stargazers::class.java)
+    }
+
+    fun getAllStarGazers(author: String, slug: String): List<User> {
+        val pageSize = 25
+        var pageNumber = 0
+        val users: MutableList<User> = mutableListOf()
+        var hasMoreStargazers = true
+
+        while (hasMoreStargazers) {
+            val stargazers = getStargazers(author, slug, pageSize, pageNumber * pageSize).result
+
+            if (stargazers.isEmpty()) {
+                hasMoreStargazers = false
+            }
+
+            users.addAll(stargazers)
+            pageNumber++
+        }
+
+        return users.toList()
+    }
+
 }
