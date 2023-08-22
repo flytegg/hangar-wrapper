@@ -29,6 +29,7 @@ data class Version(
     val channel: Channel,
     val pinnedStatus: String,
     val downloads: Map<String, DownloadInfo>,
+    val pluginDependencies: HashMap<Platform, List<PluginDependency>>,
     val platformDependencies: Map<Platform, List<String>>,
     val platformDependenciesFormatted: Map<Platform, String>
 ) {
