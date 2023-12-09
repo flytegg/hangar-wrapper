@@ -8,6 +8,16 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/.gitignore
+.idea/.name
+.idea/codeStyles/**
+.idea/compiler.xml
+.idea/jarRepositories.xml
+.idea/kotlinc.xml
+.idea/vcs.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/modules/**
 
 # AWS User-specific
 .idea/**/aws.xml

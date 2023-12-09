@@ -1,7 +1,7 @@
 import gg.flyte.hangarWrapper.HangarClient
 
 fun main() {
-    HangarClient.getProject("ViaVersion", "ViaRewind").getVersions().forEach {
+    HangarClient.getProject("ViaRewind").getVersions().forEach {
         println(it.pluginDependencies)
     }
 }

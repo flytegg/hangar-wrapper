@@ -42,8 +42,19 @@ object HangarClient {
      * @param slug The slug of the project.
      * @return A [Project] object containing the requested project.
      */
+    @Deprecated(message = "message", replaceWith = ReplaceWith("getProject(slug)"))
     fun getProject(author: String, slug: String): Project {
         return gson.fromJson(getJsonData(BASE_DOMAIN + "projects/$author/$slug"), Project::class.java)
+    }
+
+    /**
+     * Retrieves a specific project.
+     *
+     * @param slug The slug of the project.
+     * @return A [Project] object containing the requested project.
+     */
+    fun getProject(slug: String): Project {
+        return gson.fromJson(getJsonData(BASE_DOMAIN + "projects/$slug"), Project::class.java)
     }
     
     /**
@@ -63,8 +74,19 @@ object HangarClient {
      * @param slug The slug of the project.
      * @return A [Versions] object containing a list of versions for the requested project.
      */
+    @Deprecated(message = "message", replaceWith = ReplaceWith("getVersions(slug)"))
     fun getVersions(author: String, slug: String): Versions {
         return gson.fromJson(getJsonData(BASE_DOMAIN + "projects/$author/$slug/versions"), Versions::class.java)
+    }
+
+    /**
+     * Retrieves a list of versions for a specific project.
+     *
+     * @param slug The slug of the project.
+     * @return A [Versions] object containing a list of versions for the requested project.
+     */
+    fun getVersions(slug: String): Versions {
+        return gson.fromJson(getJsonData(BASE_DOMAIN + "projects/$slug/versions"), Versions::class.java)
     }
     
     /**
@@ -77,6 +99,18 @@ object HangarClient {
      */
     fun getVersion(author: String, slug: String, version: String): Version {
         return gson.fromJson(getJsonData(BASE_DOMAIN + "projects/$author/$slug/versions/$version"), Version::class.java)
+    }
+
+    /**
+     * Retrieves information about a specific version of a project.
+     *
+     * @param slug The slug of the project.
+     * @param version The version of the project to retrieve information about.
+     * @return A [Version] object containing information about the requested project version.
+     */
+    @Deprecated(message = "message", replaceWith = ReplaceWith("getVersion(slug, version)"))
+    fun getVersion(slug: String, version: String): Version {
+        return gson.fromJson(getJsonData(BASE_DOMAIN + "projects/$slug/versions/$version"), Version::class.java)
     }
     
     /**
@@ -101,6 +135,20 @@ object HangarClient {
         return BASE_DOMAIN + "projects/$author/$slug/versions/$version/$platform/download"
     }
 
+    /**
+     * Retrieves the download URL for a specific version of a project and platform.
+     *
+     * @param slug The slug of the project.
+     * @param version The version of the project to retrieve the download URL for.
+     * @param platform The platform to retrieve the download URL for.
+     * @return A string representing the download URL for the specified project version and platform.
+     */
+    @Deprecated(message = "message", replaceWith = ReplaceWith("getDownloadURL(slug, version, platform)"))
+    fun getDownloadURL(slug: String, version: String, platform: Platform): String {
+        return BASE_DOMAIN + "projects/$slug/versions/$version/$platform/download"
+    }
+
+    @Deprecated(message = "message", replaceWith = ReplaceWith("getStargazers(slug, limit, offset)"))
     fun getStargazers(author: String, slug: String, limit: Int, offset: Int): Stargazers {
         if (limit > 25) {
             throw IllegalArgumentException("Limit can't be higher than 25! (Limit: $limit)")
@@ -109,6 +157,15 @@ object HangarClient {
         return gson.fromJson(getJsonData(BASE_DOMAIN + "projects/$author/$slug/stargazers?limit=$limit&offset=$offset"), Stargazers::class.java)
     }
 
+    fun getStargazers(slug: String, limit: Int, offset: Int): Stargazers {
+        if (limit > 25) {
+            throw IllegalArgumentException("Limit can't be higher than 25! (Limit: $limit)")
+        }
+
+        return gson.fromJson(getJsonData(BASE_DOMAIN + "projects/$slug/stargazers?limit=$limit&offset=$offset"), Stargazers::class.java)
+    }
+
+    @Deprecated(message = "message", replaceWith = ReplaceWith("getStargazers(slug)"))
     fun getAllStarGazers(author: String, slug: String): List<User> {
         val pageSize = 25
         var pageNumber = 0
@@ -117,6 +174,26 @@ object HangarClient {
 
         while (hasMoreStargazers) {
             val stargazers = getStargazers(author, slug, pageSize, pageNumber * pageSize).result
+
+            if (stargazers.isEmpty()) {
+                hasMoreStargazers = false
+            }
+
+            users.addAll(stargazers)
+            pageNumber++
+        }
+
+        return users.toList()
+    }
+
+    fun getAllStarGazers(slug: String): List<User> {
+        val pageSize = 25
+        var pageNumber = 0
+        val users: MutableList<User> = mutableListOf()
+        var hasMoreStargazers = true
+
+        while (hasMoreStargazers) {
+            val stargazers = getStargazers(slug, pageSize, pageNumber * pageSize).result
 
             if (stargazers.isEmpty()) {
                 hasMoreStargazers = false
