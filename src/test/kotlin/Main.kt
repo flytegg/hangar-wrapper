@@ -10,15 +10,7 @@ suspend fun main() {
         loggingLevel = LogLevel.INFO
     }.build()
 
-    HangarClient.getProjects(
-        SearchPagination(
-            limit = 5,
-            offset = 0,
-        ),
-        sort = Sort.STARS,
-    ).result.forEach { project ->
-        println(project.name)
-    }
+    HangarClient.getProject("ViaVersion").let(::println)
 
 
 }

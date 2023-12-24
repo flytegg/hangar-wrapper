@@ -2,10 +2,12 @@ package gg.flyte.hangarWrapper.api
 
 import de.jensklingenberg.ktorfit.http.Body
 import de.jensklingenberg.ktorfit.http.GET
+import de.jensklingenberg.ktorfit.http.Path
 import de.jensklingenberg.ktorfit.http.Query
 import gg.flyte.hangarWrapper.api.model.SearchPagination
 import gg.flyte.hangarWrapper.api.model.Sort
 import gg.flyte.hangarWrapper.implementation.Pagination
+import gg.flyte.hangarWrapper.implementation.hangarProject.Project
 import gg.flyte.hangarWrapper.implementation.hangarProjects.Projects
 
 interface HangarAPI {
@@ -25,5 +27,37 @@ interface HangarAPI {
         @Query tag: String? = null,
     ): Projects
 
+    @GET("projects/{slug}")
+    suspend fun getProject(
+        @Path slug: String,
+    ): Project
+
+    @GET("projects/{slug}/watchers")
+    suspend fun getProjectWatchers(
+        @Path slug: String,
+        @Query limit: Int,
+        @Query offset: Int,
+    ): Pagination
+
+    @GET("projects/{slug}/stats")
+    suspend fun getProjectStats(
+        @Path slug: String,
+        @Query limit: Int,
+        @Query offset: Int,
+    ): Pagination
+
+    @GET("projects/{slug}/stargazers")
+    suspend fun getProjectStargazers(
+        @Path slug: String,
+        @Query limit: Int,
+        @Query offset: Int,
+    ): Pagination
+
+    @GET("projects/{slug}/members")
+    suspend fun getProjectMembers(
+        @Path slug: String,
+        @Query limit: Int,
+        @Query offset: Int,
+    ): Pagination
 
 }

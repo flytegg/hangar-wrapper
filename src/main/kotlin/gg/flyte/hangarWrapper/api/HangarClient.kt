@@ -56,6 +56,8 @@ object HangarClient {
         tag?.toString()
     )
 
+    suspend fun getProject(slug: String) = hangarApi.getProject(slug)
+
     private fun putOrNull(value: Any?, text: String) = if (value == null) text else null
 
     class Builder(init: Builder.() -> Unit) {
