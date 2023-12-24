@@ -4,22 +4,29 @@ kotlin = "1.9.21"
 shadow = "8.1.1"
 ktor = "2.3.7"
 ktorfit = "1.11.1"
+ksp = "1.9.21-1.0.16"
 
 # Libraries
 gson = "2.10.1"
+logback = "1.4.11"
 
 [libraries]
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+
 ktor-core = { module  = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-cio = { module  = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 ktor-content-negotiation = { module  = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-serialization = { module  = "io.ktor:ktor-client-serialization", version.ref = "ktor" }
 ktor-serialization-gson = { module  = "io.ktor:ktor-serialization-gson", version.ref = "ktor" }
 ktor-logging = { module  = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+
+ktorfit-ksp = { module = "de.jensklingenberg.ktorfit:ktorfit-ksp", version.ref = "ktorfit" }
 ktorfit-lib = { module = "de.jensklingenberg.ktorfit:ktorfit-lib", version.ref = "ktorfit" }
 
 
 [plugins]
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 ktorfit = { id = "de.jensklingenberg.ktorfit", version .ref = "ktorfit" }
