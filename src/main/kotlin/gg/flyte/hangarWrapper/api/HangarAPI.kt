@@ -9,6 +9,7 @@ import gg.flyte.hangarWrapper.api.model.Sort
 import gg.flyte.hangarWrapper.implementation.Pagination
 import gg.flyte.hangarWrapper.implementation.hangarProject.Project
 import gg.flyte.hangarWrapper.implementation.hangarProjects.Projects
+import java.time.OffsetDateTime
 
 interface HangarAPI {
 
@@ -37,27 +38,27 @@ interface HangarAPI {
         @Path slug: String,
         @Query limit: Int,
         @Query offset: Int,
-    ): Pagination
+    ): String
 
     @GET("projects/{slug}/stats")
     suspend fun getProjectStats(
         @Path slug: String,
-        @Query limit: Int,
-        @Query offset: Int,
-    ): Pagination
+        @Query fromDate: OffsetDateTime,
+        @Query toDate: OffsetDateTime,
+    ): String
 
     @GET("projects/{slug}/stargazers")
     suspend fun getProjectStargazers(
         @Path slug: String,
         @Query limit: Int,
         @Query offset: Int,
-    ): Pagination
+    ): String
 
     @GET("projects/{slug}/members")
     suspend fun getProjectMembers(
         @Path slug: String,
         @Query limit: Int,
         @Query offset: Int,
-    ): Pagination
+    ): String
 
 }

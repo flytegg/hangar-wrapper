@@ -12,6 +12,7 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.client.request.*
 import io.ktor.serialization.gson.*
+import java.time.OffsetDateTime
 
 object HangarClient {
 
@@ -29,7 +30,11 @@ object HangarClient {
         return ktorfit
     }
 
-    suspend fun test() = client.get("https://hangar.papermc.io/api/v1/projects?limit=5&offset=0&sort=downloads")
+    /*
+
+    PROJECTS
+
+     */
 
     suspend fun getProjects(
         searchPagination: SearchPagination,
@@ -55,8 +60,24 @@ object HangarClient {
         version,
         tag?.toString()
     )
-
     suspend fun getProject(slug: String) = hangarApi.getProject(slug)
+    suspend fun getProjectWatchers(
+        slug: String,
+        pagination: SearchPagination
+    ) = hangarApi.getProjectWatchers(slug, pagination.limit, pagination.offset)
+    suspend fun getProjectStats(
+        slug: String,
+        fromDate: OffsetDateTime,
+        toDate: OffsetDateTime
+    ) = hangarApi.getProjectStats(slug, fromDate, toDate)
+    suspend fun getProjectStargazers(
+        slug: String,
+        pagination: SearchPagination
+    ) = hangarApi.getProjectStargazers(slug, pagination.limit, pagination.offset)
+    suspend fun getProjectMembers(
+        slug: String,
+        pagination: SearchPagination
+    ) = hangarApi.getProjectMembers(slug, pagination.limit, pagination.offset)
 
     private fun putOrNull(value: Any?, text: String) = if (value == null) text else null
 
