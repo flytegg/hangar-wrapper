@@ -1,17 +1,19 @@
 package gg.flyte.hangarWrapper.api
 
-import de.jensklingenberg.ktorfit.http.Body
 import de.jensklingenberg.ktorfit.http.GET
 import de.jensklingenberg.ktorfit.http.Path
 import de.jensklingenberg.ktorfit.http.Query
-import gg.flyte.hangarWrapper.api.model.SearchPagination
-import gg.flyte.hangarWrapper.api.model.Sort
-import gg.flyte.hangarWrapper.implementation.Pagination
 import gg.flyte.hangarWrapper.implementation.hangarProject.Project
 import gg.flyte.hangarWrapper.implementation.hangarProjects.Projects
 import java.time.OffsetDateTime
 
 interface HangarAPI {
+
+    /*
+
+    PROJECTS
+
+     */
 
     @GET("projects")
     suspend fun getProjects(
@@ -59,6 +61,65 @@ interface HangarAPI {
         @Path slug: String,
         @Query limit: Int,
         @Query offset: Int,
+    ): String
+
+    /*
+
+    Users
+
+     */
+
+    @GET("users")
+    suspend fun getUsers(
+        @Query limit: Int,
+        @Query offset: Int,
+        @Query query: String,
+        @Query sort: String? = null,
+    ): String
+
+    @GET("users/{user}")
+    suspend fun getUser(
+        @Path user: String,
+    ): String
+
+    @GET("users/{user}/watching")
+    suspend fun getUserWatching(
+        @Query limit: Int,
+        @Query offset: Int,
+        @Path user: String,
+        @Query sort: String? = null,
+    ): String
+
+    @GET("users/{user}/starred")
+    suspend fun getUserStarred(
+        @Query limit: Int,
+        @Query offset: Int,
+        @Path user: String,
+        @Query sort: String? = null,
+    ): String
+
+    @GET("users/{user}/pinned")
+    suspend fun getUserPinned(
+        @Query limit: Int,
+        @Query offset: Int,
+        @Path user: String,
+        @Query sort: String? = null,
+    ): String
+
+    @GET("staff")
+    suspend fun getStaff(
+        @Query limit: Int,
+        @Query offset: Int,
+        @Query query: String,
+        @Query sort: String? = null,
+    ): String
+
+    @GET("authors")
+    suspend fun getAuthors(
+        @Query limit: Int,
+        @Query offset: Int,
+        @Query query: String,
+        @Query sort: String? = null,
     ): String
 
 }

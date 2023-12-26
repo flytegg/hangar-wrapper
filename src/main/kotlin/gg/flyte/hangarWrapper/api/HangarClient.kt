@@ -2,15 +2,16 @@ package gg.flyte.hangarWrapper.api
 
 import de.jensklingenberg.ktorfit.Ktorfit
 import gg.flyte.hangarWrapper.api.model.*
-import gg.flyte.hangarWrapper.implementation.Pagination
+import gg.flyte.hangarWrapper.api.model.project.Category
+import gg.flyte.hangarWrapper.api.model.project.ProjectSortingStrategy
+import gg.flyte.hangarWrapper.api.model.project.Tag
+import gg.flyte.hangarWrapper.api.model.user.UserSortingStrategy
 import gg.flyte.hangarWrapper.implementation.Platform
-import gg.flyte.hangarWrapper.implementation.hangarProject.Project
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
-import io.ktor.client.request.*
 import io.ktor.serialization.gson.*
 import java.time.OffsetDateTime
 
@@ -37,24 +38,25 @@ object HangarClient {
      */
 
     suspend fun getProjects(
-        searchPagination: SearchPagination,
+        requestPagination: RequestPagination,
         prioritizeExactMatch: Boolean = true,
-        order: Order = Order.DESC,
-        sort: Sort? = null,
+        sortDirection: SortDirection = SortDirection.DESC,
+        projectSortingStrategy: ProjectSortingStrategy? = null,
         category: Category? = null,
         platform: Platform? = null,
+        owner: String? = null,
         query: String? = null,
         license: String? = null,
         version: String? = null,
         tag: Tag? = null,
-
         ) = hangarApi.getProjects(
-        searchPagination.limit,
-        searchPagination.offset,
+        requestPagination.limit,
+        requestPagination.offset,
         prioritizeExactMatch,
-        putOrNull(sort, "${order.value}${sort.toString().lowercase()}"),
+        projectSortingStrategy.toQueryParam(sortDirection),
         category?.toString()?.lowercase(),
         platform?.toString(),
+        owner,
         query,
         license,
         version,
@@ -63,7 +65,7 @@ object HangarClient {
     suspend fun getProject(slug: String) = hangarApi.getProject(slug)
     suspend fun getProjectWatchers(
         slug: String,
-        pagination: SearchPagination
+        pagination: RequestPagination
     ) = hangarApi.getProjectWatchers(slug, pagination.limit, pagination.offset)
     suspend fun getProjectStats(
         slug: String,
@@ -72,14 +74,98 @@ object HangarClient {
     ) = hangarApi.getProjectStats(slug, fromDate, toDate)
     suspend fun getProjectStargazers(
         slug: String,
-        pagination: SearchPagination
+        pagination: RequestPagination
     ) = hangarApi.getProjectStargazers(slug, pagination.limit, pagination.offset)
     suspend fun getProjectMembers(
         slug: String,
-        pagination: SearchPagination
+        pagination: RequestPagination
     ) = hangarApi.getProjectMembers(slug, pagination.limit, pagination.offset)
 
-    private fun putOrNull(value: Any?, text: String) = if (value == null) text else null
+    /*
+
+    Users
+
+     */
+
+    suspend fun getUsers(
+        pagination: RequestPagination,
+        query: String,
+        sortDirection: SortDirection = SortDirection.DESC,
+        userSortingStrategy: UserSortingStrategy? = null,
+    ) = hangarApi.getUsers(
+        pagination.limit,
+        pagination.offset,
+        query,
+        userSortingStrategy
+            ?.toString()
+            ?.lowercase()
+            ?.replace("_", "")
+            .let { if (it == null) null else "${sortDirection.value}$it"},
+    )
+    suspend fun getUser(username: String) = hangarApi.getUser(username)
+    suspend fun getUserWatching(
+        pagination: RequestPagination,
+        username: String,
+        sortDirection: SortDirection = SortDirection.DESC,
+        projectSortingStrategy: ProjectSortingStrategy? = null,
+    ) = hangarApi.getUserWatching(
+        pagination.limit,
+        pagination.offset,
+        username,
+        projectSortingStrategy.toQueryParam(sortDirection)
+    )
+    suspend fun getUserStarred(
+        requestPagination: RequestPagination,
+        username: String,
+        sortDirection: SortDirection = SortDirection.DESC,
+        projectSortingStrategy: ProjectSortingStrategy? = null,
+    ) = hangarApi.getUserStarred(
+        requestPagination.limit,
+        requestPagination.offset,
+        username,
+        projectSortingStrategy.toQueryParam(sortDirection)
+    )
+    suspend fun getUserPinned(
+        requestPagination: RequestPagination,
+        username: String,
+        sortDirection: SortDirection = SortDirection.DESC,
+        projectSortingStrategy: ProjectSortingStrategy? = null,
+    ) = hangarApi.getUserPinned(
+        requestPagination.limit,
+        requestPagination.offset,
+        username,
+        projectSortingStrategy.toQueryParam(sortDirection)
+    )
+    suspend fun getStaff(
+        requestPagination: RequestPagination,
+        query: String,
+        sortDirection: SortDirection = SortDirection.DESC,
+        userSortingStrategy: UserSortingStrategy? = null,
+    ) = hangarApi.getStaff(
+        requestPagination.limit,
+        requestPagination.offset,
+        query,
+        userSortingStrategy.toQueryParam(sortDirection)
+    )
+    suspend fun getAuthors(
+        requestPagination: RequestPagination,
+        query: String,
+        sortDirection: SortDirection = SortDirection.DESC,
+        userSortingStrategy: UserSortingStrategy? = null,
+    ) = hangarApi.getAuthors(
+        requestPagination.limit,
+        requestPagination.offset,
+        query,
+        userSortingStrategy.toQueryParam(sortDirection)
+    )
+
+    private fun ProjectSortingStrategy?.toQueryParam(sortDirection: SortDirection) = this
+        ?.toString()
+        ?.lowercase()
+        .let { if (it == null) null else "${sortDirection.value}$it"}
+    private fun UserSortingStrategy?.toQueryParam(sortDirection: SortDirection) = this
+        ?.paramName
+        .let { if (it == null) null else "${sortDirection.value}$it"}
 
     class Builder(init: Builder.() -> Unit) {
         private var userAgent = "flytegg/hangar-api"

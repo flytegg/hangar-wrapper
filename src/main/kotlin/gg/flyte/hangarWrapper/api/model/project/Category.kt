@@ -1,4 +1,4 @@
-package gg.flyte.hangarWrapper.api.model
+package gg.flyte.hangarWrapper.api.model.project
 
 enum class Category {
     ADMIN_TOOLS,
