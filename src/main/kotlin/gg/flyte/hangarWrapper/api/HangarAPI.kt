@@ -1,8 +1,8 @@
 package gg.flyte.hangarWrapper.api
 
-import de.jensklingenberg.ktorfit.http.GET
-import de.jensklingenberg.ktorfit.http.Path
-import de.jensklingenberg.ktorfit.http.Query
+import de.jensklingenberg.ktorfit.http.*
+import gg.flyte.hangarWrapper.api.model.auth.ApiSession
+import gg.flyte.hangarWrapper.api.model.auth.CreateKeyForm
 import gg.flyte.hangarWrapper.implementation.hangarProject.Project
 import gg.flyte.hangarWrapper.implementation.hangarProjects.Projects
 import java.time.OffsetDateTime
@@ -121,5 +121,55 @@ interface HangarAPI {
         @Query query: String,
         @Query sort: String? = null,
     ): String
+
+    /*
+
+    Auth + API Keys
+
+     */
+
+    @POST("authenticate")
+    suspend fun authenticate(
+        @Query apiKey: String,
+    ): ApiSession
+
+    @GET("keys")
+    suspend fun getKeys(): String
+
+    @POST("keys")
+    suspend fun createKey(
+        @Body createKeyForm: CreateKeyForm
+    ): String
+
+    @DELETE("keys")
+    suspend fun deleteKey(
+        @Query name: String
+    ): String
+
+    /*
+
+    Permissions
+
+     */
+
+    @GET("permissions")
+    suspend fun getPermissions(
+        @Query slug: String? = null,
+        @Query organization: String? = null,
+    ): String
+
+    @GET("permissions/hasAny")
+    suspend fun hasAnyPermission(
+        @Query permissions: List<String>,
+        @Query slug: String? = null,
+        @Query organization: String? = null,
+    )
+
+    @GET("permissions/hasAll")
+    suspend fun hasAllPermissions(
+        @Query permissions: List<String>,
+        @Query slug: String? = null,
+        @Query organization: String? = null,
+    )
 
 }

@@ -2,6 +2,8 @@ package gg.flyte.hangarWrapper.api
 
 import de.jensklingenberg.ktorfit.Ktorfit
 import gg.flyte.hangarWrapper.api.model.*
+import gg.flyte.hangarWrapper.api.model.auth.ApiSession
+import gg.flyte.hangarWrapper.api.model.auth.CreateKeyForm
 import gg.flyte.hangarWrapper.api.model.project.Category
 import gg.flyte.hangarWrapper.api.model.project.ProjectSortingStrategy
 import gg.flyte.hangarWrapper.api.model.project.Tag
@@ -12,6 +14,7 @@ import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
+import io.ktor.client.request.*
 import io.ktor.serialization.gson.*
 import java.time.OffsetDateTime
 
@@ -20,6 +23,9 @@ object HangarClient {
     private lateinit var ktorfit: Ktorfit
     private lateinit var hangarApi: HangarAPI
     private lateinit var client: HttpClient
+
+    private var apiKey: String? = null
+    private var apiSession: ApiSession? = null
 
     var userAgent = "flytegg/hangar-api"
 
@@ -49,7 +55,7 @@ object HangarClient {
         license: String? = null,
         version: String? = null,
         tag: Tag? = null,
-        ) = hangarApi.getProjects(
+    ) = hangarApi.getProjects(
         requestPagination.limit,
         requestPagination.offset,
         prioritizeExactMatch,
@@ -62,20 +68,24 @@ object HangarClient {
         version,
         tag?.toString()
     )
+
     suspend fun getProject(slug: String) = hangarApi.getProject(slug)
     suspend fun getProjectWatchers(
         slug: String,
         pagination: RequestPagination
     ) = hangarApi.getProjectWatchers(slug, pagination.limit, pagination.offset)
+
     suspend fun getProjectStats(
         slug: String,
         fromDate: OffsetDateTime,
         toDate: OffsetDateTime
     ) = hangarApi.getProjectStats(slug, fromDate, toDate)
+
     suspend fun getProjectStargazers(
         slug: String,
         pagination: RequestPagination
     ) = hangarApi.getProjectStargazers(slug, pagination.limit, pagination.offset)
+
     suspend fun getProjectMembers(
         slug: String,
         pagination: RequestPagination
@@ -100,8 +110,9 @@ object HangarClient {
             ?.toString()
             ?.lowercase()
             ?.replace("_", "")
-            .let { if (it == null) null else "${sortDirection.value}$it"},
+            .let { if (it == null) null else "${sortDirection.value}$it" },
     )
+
     suspend fun getUser(username: String) = hangarApi.getUser(username)
     suspend fun getUserWatching(
         pagination: RequestPagination,
@@ -114,6 +125,7 @@ object HangarClient {
         username,
         projectSortingStrategy.toQueryParam(sortDirection)
     )
+
     suspend fun getUserStarred(
         requestPagination: RequestPagination,
         username: String,
@@ -125,6 +137,7 @@ object HangarClient {
         username,
         projectSortingStrategy.toQueryParam(sortDirection)
     )
+
     suspend fun getUserPinned(
         requestPagination: RequestPagination,
         username: String,
@@ -136,6 +149,7 @@ object HangarClient {
         username,
         projectSortingStrategy.toQueryParam(sortDirection)
     )
+
     suspend fun getStaff(
         requestPagination: RequestPagination,
         query: String,
@@ -147,6 +161,7 @@ object HangarClient {
         query,
         userSortingStrategy.toQueryParam(sortDirection)
     )
+
     suspend fun getAuthors(
         requestPagination: RequestPagination,
         query: String,
@@ -159,16 +174,69 @@ object HangarClient {
         userSortingStrategy.toQueryParam(sortDirection)
     )
 
+    /*
+
+    API Keys
+
+     */
+
+    suspend fun authenticate(apiKey: String) = hangarApi
+        .authenticate(apiKey)
+        .also { session -> this.apiSession = session }
+
+    suspend fun getApiKeys() = hangarApi.getKeys()
+    suspend fun createApiKey(
+        createKeyForm: CreateKeyForm
+    ) = hangarApi.createKey(createKeyForm)
+    suspend fun deleteApiKey(name: String) = hangarApi.deleteKey(name)
+
+    /*
+
+    Permissions
+
+     */
+
+    suspend fun getPermissions(
+        slug: String? = null,
+        organization: String? = null,
+    ) = hangarApi.getPermissions(
+        slug,
+        organization
+    )
+
+    suspend fun hasAnyPermission(
+        permissions: List<String>,
+        slug: String? = null,
+        organization: String? = null,
+    ) = hangarApi.hasAnyPermission(
+        permissions,
+        slug,
+        organization
+    )
+
+    suspend fun hasAllPermissions(
+        permissions: List<String>,
+        slug: String? = null,
+        organization: String? = null,
+    ) = hangarApi.hasAllPermissions(
+        permissions,
+        slug,
+        organization
+    )
+
     private fun ProjectSortingStrategy?.toQueryParam(sortDirection: SortDirection) = this
         ?.toString()
         ?.lowercase()
-        .let { if (it == null) null else "${sortDirection.value}$it"}
+        .let { if (it == null) null else "${sortDirection.value}$it" }
+
     private fun UserSortingStrategy?.toQueryParam(sortDirection: SortDirection) = this
         ?.paramName
-        .let { if (it == null) null else "${sortDirection.value}$it"}
+        .let { if (it == null) null else "${sortDirection.value}$it" }
 
     class Builder(init: Builder.() -> Unit) {
         private var userAgent = "flytegg/hangar-api"
+
+        var apiKey: String? = null
 
         var logging = true
         var loggingLevel = LogLevel.ALL
@@ -194,6 +262,10 @@ object HangarClient {
                 }
                 install(UserAgent) {
                     agent = HangarClient.userAgent
+                }
+
+                defaultRequest {
+                    header("Authorization", HangarClient.apiSession?.token)
                 }
             }
 
