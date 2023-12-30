@@ -18,7 +18,7 @@ object HangarClient {
 
     private lateinit var ktorfit: Ktorfit
     private lateinit var hangarApi: HangarAPI
-    private lateinit var client: HttpClient
+    lateinit var client: HttpClient
 
     private var apiKey: String? = null
     private var apiSession: ApiSession? = null

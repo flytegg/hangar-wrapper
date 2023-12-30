@@ -108,11 +108,13 @@ interface HangarAPI {
         @Query toDate: OffsetDateTime,
     ): Map<String, VersionStats>
 
+    @Headers("Accept: text/plain")
     @GET("projects/{slug}/latestrelease")
     suspend fun getLatestRelease(
         @Path slug: String,
     ): String
 
+    @Headers("Accept: text/plain")
     @GET("projects/{slug}/latest")
     suspend fun getLatestVersion(
         @Path slug: String,
