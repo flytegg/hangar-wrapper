@@ -290,7 +290,7 @@ object HangarClient {
         var apiKey: String? = null
 
         var logging = true
-        var loggingLevel = LogLevel.ALL
+        var loggingLevel = LogLevel.NONE
         var logger = Logger.DEFAULT
         var customLogger: Logger? = null
 
