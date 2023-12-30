@@ -104,8 +104,8 @@ object HangarClient {
         slug,
         pagination.limit,
         pagination.offset,
-        platform?.toString(),
         channel,
+        platform?.toString(),
         platformVersion,
     )
 
