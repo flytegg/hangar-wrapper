@@ -41,7 +41,7 @@ interface HangarAPI {
     @GET("projects/{slug}")
     suspend fun getProject(
         @Path slug: String,
-    ): PaginatedResult<User>
+    ): Project
 
     @GET("projects/{slug}/watchers")
     suspend fun getProjectWatchers(
